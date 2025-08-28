@@ -58,25 +58,12 @@ lib/
 
 ## 🛠️ Getting Started
 
-### Prerequisites
-- Install [Flutter](https://docs.flutter.dev/get-started/install)
-- Install [Dart](https://dart.dev/get-dart)
-- Android/iOS emulator or physical device
 
 ### Installation
 
 ```bash
 # Clone the repository
-git clone https://github.com/yossefabbasya19/DigitalHup-task.git
-
-# Go to project directory
-cd DigitalHup-task
-
-# Install dependencies
-flutter pub get
-
-# Run the app
-flutter run
+api Key 8c7b3a78bd654b028ee298ed9d59eaed
 ```
 
 ---
@@ -87,8 +74,6 @@ flutter run
 
 - `dio` – API service
 - `flutter_bloc` / `provider` – State management
-- `equatable` – Model comparison
-- `get_it` – Dependency injection
 
 ---
 
