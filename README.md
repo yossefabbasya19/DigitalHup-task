@@ -64,6 +64,7 @@ lib/
 ```bash
 # Clone the repository
 api Key 8c7b3a78bd654b028ee298ed9d59eaed
+api Key2 a3679a4e4deb43b8a0ae60544dc52f50
 ```
 
 ---
