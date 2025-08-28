@@ -100,12 +100,44 @@ The project uses the following packages (as listed in `pubspec.yaml`):
 - `url_launcher: ^6.3.0` – Launch URLs in browser or external apps
 - `dartz: ^0.10.1` – function can take two return type
 ---
-## 🤝 Contributing
+## 📊 Data Flow & App Functionality
 
-1. Fork the repo
-2. Create a new branch (`feature/my-feature`)
-3. Commit changes
-4. Push branch
-5. Open a Pull Request
+This document outlines the full data flow of the **DigitalHub** app.  
+The app follows **clean architecture principles**, supports online data fetching via API, and handles local caching or offline scenarios if implemented.
 
 ---
+
+### 1. Home Feature – Initial Load
+- Upon entering the **home** feature, a **loading indicator** is shown while initializing data.
+- The **ViewModel** starts the **data-fetching process** for the home content.
+
+---
+
+
+### 2. Article_Details Feature
+- When a user selects an article, the **article_details** feature fetches the article content.
+- The ViewModel retrieves data from the repository, which may fetch from API or cache.
+- The UI displays the article content and related information.
+
+---
+
+### 3. Search Feature
+- The **search** feature allows users to find content across the app.
+- The ViewModel queries the search repository for results from API or cache.
+- Results are displayed in the UI as a list or grid.
+
+---
+
+### 4. Error Handling
+- Errors during API requests, repository access, or data parsing trigger **user-friendly error messages**.
+- Retry options may be provided for failed operations.
+
+---
+
+### 5. Displaying Data
+- When data fetching succeeds:
+    - The **ViewModel updates its state**.
+    - The **UI listens to the ViewModel** and displays content from each feature:
+        - `home` – Dashboard content
+        - `article_details` – Article content and metadata
+        - `search` – Search results
