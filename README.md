@@ -84,7 +84,6 @@ Each feature (`home`, `auth`, `article_details`, `search`) includes:
 ### Installation
 
 ```bash
-# Clone the repository
 api Key 8c7b3a78bd654b028ee298ed9d59eaed
 api Key2 a3679a4e4deb43b8a0ae60544dc52f50
 ```
@@ -93,13 +92,13 @@ api Key2 a3679a4e4deb43b8a0ae60544dc52f50
 
 ## 📦 Dependencies
 
-*(Update with actual ones from `pubspec.yaml`)*
+The project uses the following packages (as listed in `pubspec.yaml`):
 
-- `dio` – API service
-- `flutter_bloc` / `provider` – State management
-
+- `dio: ^5.9.0` – API service
+- `flutter_bloc: ^9.1.1` – State management
+- `animated_toggle_switch: ^0.8.5` – Custom animated toggle switches
+- `url_launcher: ^6.3.0` – Launch URLs in browser or external apps
 ---
-
 ## 🤝 Contributing
 
 1. Fork the repo
