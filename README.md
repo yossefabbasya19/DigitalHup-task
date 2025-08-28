@@ -66,7 +66,7 @@ DigitalHub follows a **feature-based clean architecture**, separating the code i
 
 ### 🧩 Feature Layer
 
-Each feature (e.g., `home`, `splash`, `auth`) includes:
+Each feature (`home`, `auth`, `article_details`, `search`) includes:
 
 #### 1. Presentation Layer
 - **Location:** `/feature/[feature_name]/presentation/`
@@ -76,7 +76,7 @@ Each feature (e.g., `home`, `splash`, `auth`) includes:
 
 #### 2. Data Layer
 - **Location:** `/feature/[feature_name]/data/`
-- **/models:** Dart models (e.g., `Photo`)
+- **/models:** Dart models (e.g., `Article`, `User`)
 - **/data_source:** Handles remote (Dio) or local (Hive) data access
 - **/repo:** Abstracts data source access and provides feature logic
 
