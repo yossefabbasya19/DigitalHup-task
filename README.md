@@ -1,7 +1,7 @@
 # 📱 DigitalHub
 
-**DigitalHub** is a Flutter project structured using **clean architecture principles** with clear separation of concerns between `core` utilities and modular `feature` implementations.
-
+**DigitalHub** is a modern Flutter app that provides users with a feature-rich experience including authentication, home dashboard, article details, and search functionality.  
+The app is built using **clean architecture principles** to ensure maintainable, scalable, and testable code.
 ---
 
 ## 🚀 Features
