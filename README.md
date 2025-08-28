@@ -50,6 +50,8 @@ lib/
 │       └── presentation/        # UI layer (views, view models)
 │
 └── main.dart                    # Application entry point
+│
+└── digital_hub.dart   
 ```
 
 ---
