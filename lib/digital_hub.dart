@@ -1,5 +1,6 @@
 import 'package:digital_hub_task/core/route_manager/my_router.dart';
 import 'package:digital_hub_task/core/theme/my_theme.dart';
+import 'package:digital_hub_task/feature/authentication/presentation/views/login_view.dart';
 import 'package:digital_hub_task/feature/home/presentation/view/home_view.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ class DigitalHubApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
       theme: MyTheme.lightTheme,
-      home: HomeView(),
+      home: LoginView(),
     );
   }
 }

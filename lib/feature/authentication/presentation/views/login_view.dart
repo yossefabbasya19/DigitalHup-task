@@ -15,70 +15,96 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  GlobalKey<FormState> formKey = GlobalKey();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool loading = false;
+
+  Future<void> _login(BuildContext context) async {
+    if (!formKey.currentState!.validate()) return;
+
+    setState(() => loading = true);
+
+    await Future.delayed(const Duration(seconds: 1));
+
+      Navigator.pushReplacementNamed(context, MyRouter.homeView);
+
+    setState(() => loading = false);
+  }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
+
     return Scaffold(
       body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.sizeOf(context).width * 0.03,
-          ),
-          child: Form(
-            key: formKey,
-            child: Column(
-              children: [
-                SizedBox(height: MediaQuery.sizeOf(context).height * 0.05),
-                Image(image: AssetImage(AssetsManager.appLogo)),
-                CustomTextFormField(
-                  icon: Icons.email,
-                  txt: "Email",
-                  isPassword: false,
-                  validate: Validator.emailValidator,
-                ),
-                SizedBox(height: MediaQuery.sizeOf(context).height * 0.015),
-                CustomTextFormField(
-                  icon: Icons.password,
-                  txt: "Password",
-                  isPassword: true,
-                  validate: Validator.passwordValidator,
-                ),
-                SizedBox(height: MediaQuery.sizeOf(context).height * 0.01),
-                CustomTextButton(txt: "forget Password", onPressed: () {}),
-                SizedBox(height: MediaQuery.sizeOf(context).height * 0.01),
-                CustomElevatedButton(
-                  isLoading: loading,
-                  txt: "Login",
-                  onPressed: () async{
-                    loading = true;
-                    setState(() {
+        padding: EdgeInsets.symmetric(horizontal: size.width * 0.03),
+        child: Form(
+          key: formKey,
+          child: Column(
+            children: [
+              SizedBox(height: size.height * 0.05),
 
-                    });
-                   await Future.delayed(Duration(seconds: 1),);
-                    if (formKey.currentState!.validate()) {
-                      Navigator.pushReplacementNamed(context, MyRouter.homeView);
-                    }
-                    loading = false;
-                    setState(() {
+              // Logo
+              Image(image: AssetImage(AssetsManager.appLogo)),
 
-                    });
-                  },
+              SizedBox(height: size.height * 0.03),
+
+              // Email
+              CustomTextFormField(
+                icon: Icons.email,
+                txt: "Email",
+                isPassword: false,
+                validate: Validator.emailValidator,
+              ),
+
+              SizedBox(height: size.height * 0.015),
+
+              // Password
+              CustomTextFormField(
+                maxLineSelect: 1,
+                icon: Icons.lock,
+                txt: "Password",
+                isPassword: true,
+                validate: Validator.passwordValidator,
+              ),
+
+              SizedBox(height: size.height * 0.01),
+
+              // Forget Password
+              Align(
+                alignment: Alignment.centerRight,
+                child: CustomTextButton(
+                  txt: "Forget Password?",
+                  onPressed: () {},
                 ),
-                SizedBox(height: MediaQuery.sizeOf(context).height * 0.01),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("Don’t Have Account?"),
-                    CustomTextButton(txt: "Create Account", onPressed: () {}),
-                  ],
-                ),
-                SizedBox(height: MediaQuery.sizeOf(context).height * 0.03),
-                CustomToggleSwitch(),
-                SizedBox(height: MediaQuery.sizeOf(context).height * 0.1),
-              ],
-            ),
+              ),
+
+              SizedBox(height: size.height * 0.015),
+
+              // Login Button
+              CustomElevatedButton(
+                isLoading: loading,
+                txt: "Login",
+                onPressed: () => _login(context),
+              ),
+
+              SizedBox(height: size.height * 0.015),
+
+              // Register
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("Don’t have an account? "),
+                  CustomTextButton(txt: "Create Account", onPressed: () {}),
+                ],
+              ),
+
+              SizedBox(height: size.height * 0.03),
+
+              // language Toggle
+              const CustomToggleSwitch(),
+
+              SizedBox(height: size.height * 0.1),
+            ],
           ),
         ),
       ),

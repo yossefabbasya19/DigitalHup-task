@@ -7,19 +7,22 @@ class ArticleDetailScreen extends StatelessWidget {
 
   const ArticleDetailScreen({super.key, required this.article});
 
+  // فنكشن بتفتح اللينك في المتصفح
   Future<void> _openUrl(BuildContext context, String? url) async {
     if (url == null || url.isEmpty) {
+      // لو مفيش لينك، هيطبع رسالة خطأ
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text("URL not available")));
+      ).showSnackBar(const SnackBar(content: Text("URL مش موجود")));
       return;
     }
 
     final Uri uri = Uri.parse(url);
     if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+      // لو معرفش يفتح اللينك
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text("Could not launch $url")));
+      ).showSnackBar(SnackBar(content: Text("مش قادر يفتح $url")));
     }
   }
 
@@ -35,6 +38,7 @@ class ArticleDetailScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // لو في صورة للأرتيكل اعرضها
             if (article.urlToImage != null && article.urlToImage!.isNotEmpty)
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
@@ -49,6 +53,7 @@ class ArticleDetailScreen extends StatelessWidget {
                 ),
               )
             else
+            // لو مفيش صورة اعرض صندوق رمادي
               Container(
                 height: 200,
                 decoration: BoxDecoration(
@@ -66,25 +71,29 @@ class ArticleDetailScreen extends StatelessWidget {
 
             const SizedBox(height: 20),
 
+            // عنوان الخبر
             Text(
-              article.title ?? "No title available",
+              article.title ?? "مفيش عنوان",
               style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
 
             const SizedBox(height: 12),
+
+            // وصف الخبر
             Text(
-              article.description ?? "No description available",
+              article.description ?? "مفيش وصف",
               style: const TextStyle(fontSize: 16, color: Colors.black87),
             ),
 
             const SizedBox(height: 24),
 
+            // زرار يفتح المقال كامل في المتصفح
             Center(
               child: ElevatedButton.icon(
                 onPressed: () => _openUrl(context, article.url),
                 icon: const Icon(Icons.open_in_browser, size: 20),
                 label: const Text(
-                  "Read Full Article",
+                  "افتح المقال كامل",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
                 style: ElevatedButton.styleFrom(

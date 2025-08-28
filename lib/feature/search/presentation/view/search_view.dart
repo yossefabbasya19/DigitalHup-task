@@ -26,8 +26,8 @@ class _SearchScreenState extends State<SearchScreen> {
     super.initState();
   }
 
-  loadData() async{
-    await searchCubit.loadMoreData();
+  loadData() async {
+    await searchCubit.loadMoreData(); // تحميل بيانات اكتر للـ Pagination
   }
 
   @override
@@ -50,6 +50,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
+
                     onSubmitted: (value) async {
                       if (value.isEmpty) {
                         articles.clear();
@@ -67,12 +68,13 @@ class _SearchScreenState extends State<SearchScreen> {
                   child: BlocConsumer<SearchCubit, SearchState>(
                     listener: (context, state) {
                       if (state is SearchByKeywordSuccess) {
+                        // لو البحث نجح، ضيف النتايج في الليستة
                         articles.addAll(state.newsResponse.articles!);
-                        print("article len${articles.length}");
                       }
                     },
                     builder: (context, state) {
                       if (state is SearchByKeywordFailure) {
+                        // لو فيه Error
                         return ErrorScreen(
                           message: state.errorMessage,
                           onRefresh: () async {
@@ -82,11 +84,13 @@ class _SearchScreenState extends State<SearchScreen> {
                         );
                       }
 
-                      if (state is SearchByKeywordLoading&& articles.isEmpty) {
+                      if (state is SearchByKeywordLoading && articles.isEmpty) {
+                        // لو بيحمل لأول مرة
                         return const LoadingScreen();
                       }
 
                       if (articles.isEmpty) {
+                        // لو لسه مفيش بحث
                         return const Center(
                           child: Text(
                             "Start typing to search articles",
@@ -96,8 +100,9 @@ class _SearchScreenState extends State<SearchScreen> {
                       }
 
                       return Stack(
-                         alignment: Alignment.bottomCenter,
+                        alignment: Alignment.bottomCenter,
                         children: [
+                          // الليستة اللي بتعرض المقالات
                           ListView.builder(
                             controller: searchCubit.scrollController,
                             itemCount: articles.length,
@@ -105,7 +110,10 @@ class _SearchScreenState extends State<SearchScreen> {
                               return NewsItemCard(articles: articles[index]);
                             },
                           ),
-                          searchCubit.paginationLoading == true?CircularProgressIndicator():SizedBox()
+                          // لو فيه Pagination شغالة اعرض Loading indicator
+                          searchCubit.paginationLoading
+                              ? const CircularProgressIndicator()
+                              : const SizedBox()
                         ],
                       );
                     },
