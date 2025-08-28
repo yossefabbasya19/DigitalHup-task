@@ -31,33 +31,40 @@ class _HomeViewState extends State<HomeView> {
     super.initState();
   }
 
-  loadData() async {
+  Future<void> loadData() async {
+    // هنا بنجيب أخبار الcategory الأول
     await homeCubit.getNewsByCategory(Constant.newsCategory[0], 1);
-    homeCubit.loadMoreData();
+    homeCubit.loadMoreData(); // هنا بنعمل تحميل لصفحات إضافية (infinite scroll)
+  }
+
+  Future<void> onRefresh() async {
+    // دي عشان الـ Pull To Refresh
+    int indexOfCategory = Constant.newsCategory.indexOf(homeCubit.category);
+    homeCubit.articles.clear();
+    homeCubit.pageNumber = 1;
+    await homeCubit.getNewsByCategory(Constant.newsCategory[indexOfCategory], 1);
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: homeCubit,
+      value: homeCubit, // بندي الكيوبت للبلوك بروفايدر
       child: Builder(
         builder: (context) {
           return Scaffold(
             appBar: AppBar(
-              actionsPadding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.sizeOf(context).width * 0.03,
-              ),
-              title: Text("DigitalHup New"),
+              title: const Text("DigitalHub News"), // عنوان الأب بار
               actions: [
                 IconButton(
-                  icon: Icon(Icons.search),
+                  icon: const Icon(Icons.search), // زرار البحث
                   onPressed: () {
-                    Navigator.pushNamed(context, MyRouter.searchView);
+                    Navigator.pushNamed(context, MyRouter.searchView); // يودينا على شاشة البحث
                   },
                 ),
               ],
               bottom: CustomTabBar(
                 onTap: (value) async {
+                  // هنا لما تغير التاب نعمل تحميل داتا جديدة حسب الكاتيجوري
                   homeCubit.category = Constant.newsCategory[value];
                   homeCubit.articles.clear();
                   homeCubit.pageNumber = 1;
@@ -71,59 +78,52 @@ class _HomeViewState extends State<HomeView> {
             body: BlocConsumer<HomeCubit, HomeState>(
               listener: (context, state) {
                 if (state is GetNewsByCategorySuccess) {
-                  articles = state.articles;
+                  articles = state.articles; // لو جاب المقالات بنخزنها في الليست
                 }
               },
               builder: (context, state) {
                 if (state is GetNewsByCategoryFailure) {
                   return ErrorScreen(
-                    message: state.errorMessage,
-                    onRefresh: () async {
-                      int indexOfCategory = Constant.newsCategory.indexOf(
-                        homeCubit.category,
-                      );
-                      setState(() {});
-                      homeCubit.articles.clear();
-                      homeCubit.pageNumber = 1;
-                      await homeCubit.getNewsByCategory(
-                        Constant.newsCategory[indexOfCategory],
-                        1,
-                      );
-                    },
+                    message: state.errorMessage, // لو فيه خطأ نعرضه
+                    onRefresh: onRefresh,
                   );
                 }
                 if (state is GetNewsByCategoryLoading && articles.isEmpty) {
-                  return LoadingScreen();
+                  return const LoadingScreen(); // لو لسه بيحمل من غير داتا نعرض لودنج
                 }
-                return CustomScrollView(
-                  controller: homeCubit.scrollController,
-                  slivers: [
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        childCount: articles.isEmpty ? 1 : articles.length,
-                        (context, index) {
-                          if (articles.isEmpty) {
-                            return EmptyArticlesWidget();
-                          }
-                          return NewsItemCard(articles: articles[index]);
-                        },
+                return RefreshIndicator(
+                  onRefresh: onRefresh, // سحب لتحديث الداتا
+                  child: CustomScrollView(
+                    controller: homeCubit.scrollController, // عشان الـ pagination
+                    slivers: [
+                      SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          childCount: articles.isEmpty ? 1 : articles.length,
+                              (context, index) {
+                            if (articles.isEmpty) {
+                              return const EmptyArticlesWidget(); // لو مفيش مقالات نعرض empty widget
+                            }
+                            return NewsItemCard(articles: articles[index]); // كارت المقال
+                          },
+                        ),
                       ),
-                    ),
-                    if (homeCubit.paginationLoading) ...[
-                      SliverToBoxAdapter(
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            bottom: MediaQuery.sizeOf(context).height * 0.05,
-                          ),
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              color: AppColor.black,
+                      if (homeCubit.paginationLoading) ...[
+                        // هنا لو بيحمل بيانات زيادة (صفحات إضافية)
+                        SliverToBoxAdapter(
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              bottom: MediaQuery.sizeOf(context).height * 0.05,
+                            ),
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                color: AppColor.black,
+                              ),
                             ),
                           ),
                         ),
-                      ),
+                      ],
                     ],
-                  ],
+                  ),
                 );
               },
             ),
