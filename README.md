@@ -98,6 +98,7 @@ The project uses the following packages (as listed in `pubspec.yaml`):
 - `flutter_bloc: ^9.1.1` – State management
 - `animated_toggle_switch: ^0.8.5` – Custom animated toggle switches
 - `url_launcher: ^6.3.0` – Launch URLs in browser or external apps
+- `dartz: ^0.10.1` – function can take two return type
 ---
 ## 🤝 Contributing
 
