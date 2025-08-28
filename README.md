@@ -108,7 +108,3 @@ The project uses the following packages (as listed in `pubspec.yaml`):
 5. Open a Pull Request
 
 ---
-
-## 📜 License
-
-This project is licensed under the **MIT License**.
