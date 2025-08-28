@@ -58,7 +58,29 @@ lib/
 
 ## 🛠️ Getting Started
 
+## 🧠 Clean Architecture Overview
 
+DigitalHub follows a **feature-based clean architecture**, separating the code into clear layers for maintainability and scalability.
+
+---
+
+### 🧩 Feature Layer
+
+Each feature (e.g., `home`, `splash`, `auth`) includes:
+
+#### 1. Presentation Layer
+- **Location:** `/feature/[feature_name]/presentation/`
+- **/view:** Displays UI (Flutter widgets)
+- **/view_model:** Handles business logic and state (interacts with repository)
+- **Note:** Presentation **does not** directly call APIs or databases.
+
+#### 2. Data Layer
+- **Location:** `/feature/[feature_name]/data/`
+- **/models:** Dart models (e.g., `Photo`)
+- **/data_source:** Handles remote (Dio) or local (Hive) data access
+- **/repo:** Abstracts data source access and provides feature logic
+
+> 🧠 Repositories act as a middleman between ViewModels and raw data sources.
 ### Installation
 
 ```bash
