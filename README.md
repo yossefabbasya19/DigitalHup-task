@@ -10,10 +10,6 @@ The app is built using **clean architecture principles** to ensure maintainable,
 - 🏠 **Home** module for main content
 - 📖 **Article Details** module for detailed reading
 - 🔎 **Search** module for content discovery
-- 🌐 API service layer for backend integration
-- 🎨 Theming, color management, and reusable UI components
-- ✅ Form validation and error handling
-
 ---
 
 ## 📂 Project Structure
