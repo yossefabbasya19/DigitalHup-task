@@ -99,6 +99,7 @@ The project uses the following packages (as listed in `pubspec.yaml`):
 - `animated_toggle_switch: ^0.8.5` – Custom animated toggle switches
 - `url_launcher: ^6.3.0` – Launch URLs in browser or external apps
 - `dartz: ^0.10.1` – function can take two return type
+- `cached_network_image: ^3.4.1` – Efficient image loading with caching
 ---
 ## 📊 Data Flow & App Functionality
 

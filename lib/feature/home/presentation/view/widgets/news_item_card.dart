@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:digital_hub_task/core/app_color/app_color.dart';
 import 'package:digital_hub_task/core/extention/get_defferent_datetime.dart';
 import 'package:digital_hub_task/core/route_manager/my_router.dart';
@@ -48,17 +49,16 @@ class NewsItemCard extends StatelessWidget {
               child: AspectRatio(
                 aspectRatio: 16 / 9,
                 child: articles.urlToImage != null && articles.urlToImage!.isNotEmpty
-                    ? Image.network(
-                  articles.urlToImage!,
+                    ? CachedNetworkImage(
+                  imageUrl: articles.urlToImage ?? "",
                   fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) => Container(
+                  placeholder: (context, url) => Center(
+                    child: CircularProgressIndicator(color: AppColor.black),
+                  ),
+                  errorWidget: (context, url, error) => Container(
                     color: Colors.grey.shade200,
                     child: const Icon(Icons.broken_image, size: 60, color: Colors.grey),
                   ),
-                  loadingBuilder: (context, child, progress) {
-                    if (progress == null) return child;
-                    return  Center(child: CircularProgressIndicator(color: AppColor.black,));
-                  },
                 )
                     : Container(
                   color: Colors.grey.shade200,

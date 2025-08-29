@@ -39,6 +39,7 @@ dependencies:
   flutter_bloc: ^9.1.1
   animated_toggle_switch: ^0.8.5
   url_launcher: ^6.3.0
+  cached_network_image: ^3.4.1
 
 dev_dependencies:
   flutter_test:
