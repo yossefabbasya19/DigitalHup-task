@@ -23,6 +23,7 @@ class HomeRepoImple extends HomeRepo {
       return Right(newsResponse);
     } catch (e) {
       if (e is DioException) {
+        print(e);
         return Left(ServerFailure.fromDioException(e));
       }
       return Left(ServerFailure(errorMessage: e.toString()));

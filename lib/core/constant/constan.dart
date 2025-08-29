@@ -1,5 +1,6 @@
 class Constant {
   static List<String> newsCategory = [
+    "all",
     "business",
     "entertainment",
     "general",

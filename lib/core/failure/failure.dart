@@ -36,6 +36,7 @@ class ServerFailure extends Failure {
     if (
     dioException.response!.statusCode == 404 ||
     dioException.response!.statusCode == 426 ||
+    dioException.response!.statusCode == 429 ||
         dioException.response!.statusCode == 401
     ) {
       return ServerFailure(

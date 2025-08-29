@@ -133,6 +133,40 @@ The app follows **clean architecture principles**, supports online data fetching
 - Retry options may be provided for failed operations.
 
 ---
+### 🔹 Failure Class
+- Base class for all failures.
+- Holds a simple `errorMessage` describing the issue.
+
+---
+
+### 🔹 ServerFailure Class
+- Extends `Failure` and specializes in handling **DioException**.
+- Maps Dio’s exception types and HTTP status codes into **user-friendly messages**.
+
+#### 🔸 Exception Type Mapping
+| DioExceptionType       | Behavior / Message |
+|------------------------|--------------------|
+| `connectionTimeout`    | `"connectionTimeout"` |
+| `sendTimeout`          | `"sendTimeout"` |
+| `receiveTimeout`       | `"receiveTimeout"` |
+| `badCertificate`       | `"badCertificate"` |
+| `cancel`               | `"request canceled"` |
+| `connectionError`      | `"connection error"` |
+| `unknown`              | `"there was an error , please try later"` |
+| `badResponse`          | Handled separately based on HTTP status code |
+
+---
+
+#### 🔸 HTTP Status Code Handling (badResponse)
+When the server responds with an error, the app maps **specific status codes**:
+
+| Status Code | Meaning | App Behavior |
+|-------------|---------|--------------|
+| **401 Unauthorized** | User is not authorized (invalid token, session expired) | Shows `message` from API response |
+| **404 Not Found** | Requested resource does not exist | Shows `message` from API response |
+| **426 Upgrade Required** | Client must upgrade (e.g., outdated app version) | Shows `message` from API response, often prompting update |
+| **429 Too Many Requests** | Rate limiting (too many API calls) | Shows `message` from API response, asks user to slow down |
+| **Other Codes** | Any unhandled server error | Defaults to `"there was an error , please try later"` |
 
 ### 5. Displaying Data
 - When data fetching succeeds:
