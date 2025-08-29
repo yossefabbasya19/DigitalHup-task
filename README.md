@@ -106,7 +106,7 @@ The app follows **clean architecture principles**, supports online data fetching
 ### 1. Home Feature – Initial Load
 - Upon entering the **home** feature, a **loading indicator** is shown while initializing data.
 - The **ViewModel** starts the **data-fetching process** for the home content.
-- 📑 Empty State Handling: If no articles are available in a tab (e.g., Technology), the app displays a friendly message with a logo/icon 📰 saying “No articles available” instead of leaving the screen blank.
+- 📑 Empty State Handling: If no articles are available in a tab (e.g., Technology1), the app displays a friendly message with a logo/icon 📰 saying “No articles available” instead of leaving the screen blank.
 ---
 
 
