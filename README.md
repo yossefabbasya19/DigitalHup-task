@@ -82,21 +82,7 @@ Each feature (`home`, `auth`, `article_details`, `search`) includes:
 api Key 8c7b3a78bd654b028ee298ed9d59eaed
 api Key2 a3679a4e4deb43b8a0ae60544dc52f50
 ```
-# 📱 Generating APK & Setting App Icon
 
-1. Add Internet permission in `android/app/src/main/AndroidManifest.xml`:
-
-<uses-permission android:name="android.permission.INTERNET"/>
-
-2. Build release APK:
-
-flutter build apk --release
-
-3. Update app icon in `AndroidManifest.xml`:
-
-android:icon="@mipmap/ic_launcher"
-
-4. Replace default icons in the `mipmap` folders with your custom icons.
 ---
 
 ## 📦 Dependencies
