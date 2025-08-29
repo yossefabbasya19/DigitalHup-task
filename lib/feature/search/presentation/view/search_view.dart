@@ -21,6 +21,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   void initState() {
+    focusNode.requestFocus();
     searchCubit = SearchCubit(SearchRepoImp());
     loadData();
     super.initState();
@@ -28,6 +29,13 @@ class _SearchScreenState extends State<SearchScreen> {
 
   loadData() async {
     await searchCubit.loadMoreData(); // تحميل بيانات اكتر للـ Pagination
+  }
+
+  FocusNode focusNode = FocusNode();
+  @override
+  void dispose() {
+    focusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -43,6 +51,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 Padding(
                   padding: const EdgeInsets.all(12),
                   child: TextField(
+                    focusNode:focusNode,
                     decoration: InputDecoration(
                       hintText: "Search articles...",
                       prefixIcon: const Icon(Icons.search),
