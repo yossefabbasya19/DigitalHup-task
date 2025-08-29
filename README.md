@@ -77,8 +77,7 @@ Each feature (`home`, `auth`, `article_details`, `search`) includes:
 #### 2. Data Layer
 - **Location:** `/feature/[feature_name]/data/`
 - **/models:** Dart models (e.g., `Article`, `User`)
-- **/data_source:** Handles remote (Dio) or local (Hive) data access
-- **/repo:** Abstracts data source access and provides feature logic
+- **/repo:** Abstracts api service access and provides feature logic
 
 > 🧠 Repositories act as a middleman between ViewModels and raw data sources.
 ### Installation
